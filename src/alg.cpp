@@ -2,48 +2,43 @@
 #include <cstdint>
 #include "alg.h"
 uint64_t collatzMaxValue(uint64_t num) {
-  uint64_t maxVal = num;
-  uint64_t n = num;
-  while (n != 1) {
-    if (n % 2 == 0) {
-      n = n / 2;
+  uint64_t max_val = num;
+  while (num != 1) {
+    if (num % 2 == 0) {
+      num /= 2;
     } else {
-      n = 3 * n + 1;
+      num = 3 * num + 1;
     }
-    if (n > maxVal) {
-      maxVal = n;
+    if (num > max_val) {
+      max_val = num;
     }
   }
-  return maxVal;
+  return max_val;
 }
 unsigned int collatzLen(uint64_t num) {
-  unsigned int len = 1;
-  uint64_t n = num;
-  while (n != 1) {
-    if (n % 2 == 0) {
-      n = n / 2;
+  unsigned int length = 1;
+  while (num != 1) {
+    if (num % 2 == 0) {
+      num /= 2;
     } else {
-      n = 3 * n + 1;
+      num = 3 * num + 1;
     }
-    len++;
+    length++;
   }
-  return len;
+  return length;
 }
 unsigned int seqCollatz(unsigned int *maxlen,
                         uint64_t lbound,
                         uint64_t rbound){
-  unsigned int bestNum = lbound;
-  unsigned int bestLen = 0;
-  for (uint64_t num = lbound; num <= rbound; num++) {
-    unsigned int len = collatzLen(num);
-    if (len > bestLen) {
-      bestLen = len;
-      bestNum = num;
+  unsigned int max_length = 0;
+  unsigned int result_num = lbound;
+  for (uint64_t num = lbound; num <= rbound; ++num) {
+    unsigned int current_len = collatzLen(num);
+    if (current_len > max_length) {
+      max_length = current_len;
+      result_num = num;
     }
   }
-  *maxlen = bestLen;
-  return bestNum;
-}
-  *maxlen = bestLen;
-  return bestNum;
+  *maxlen = max_length;
+  return result_num;
 }
